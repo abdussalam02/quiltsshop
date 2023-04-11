@@ -25,17 +25,14 @@ environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-f_ffth-z9-t@8$b0)3u2hse&zf-g7%lu^w^n@vzn&i&$^91lk6'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS = ['quilts.up.railway.app', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://quilts.up.railway.app/']
@@ -175,16 +172,16 @@ MEDIA_URL = '/media/'
 
 
 #Razorpay
-RAZORPAY_API_KEY = 'rzp_test_ktEC1FMJkGwcBD'
-RAZORPAY_API_SECRET = 'dpENeTvRztpwAZHVLhwaDMLv'
+RAZORPAY_API_KEY = env('RAZORPAY_API_KEY')
+RAZORPAY_API_SECRET = env('RAZORPAY_API_SECRET')
 
 #Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = env('EMAIL_HOST')
-# EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 #Form
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
