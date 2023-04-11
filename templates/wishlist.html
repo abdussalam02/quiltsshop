@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav-phone %}
+<a href="tel:{{information.phone}}">{{information.phone}}</a>
+{% endblock nav-phone %}
+{% block wishlist %}{{wish_count}}{%endblock wishlist %}
+{% block cart %}{{cart_count}}{% endblock cart %} 
+{% block body %}
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+  <div class="row px-xl-5">
+    <div class="col-12">
+      <nav class="breadcrumb bg-light mb-30">
+        <a class="breadcrumb-item text-dark" href="{% url 'index' %}">Home</a>
+        <a class="breadcrumb-item text-dark" href="{% url 'profile' %}">{{request.user.name}}</a>
+        <span class="breadcrumb-item active">Wishlist</span>
+      </nav>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Cart Start -->
+<div class="container">
+  <div class="row px-xl-5 justify-content-center">
+    <div class="col-lg-12 mb-5">
+      {% if wishlists %}
+      <div class="shopping-cart">
+        <!-- Title -->
+        <div class="title">My Wishlist</div>
+        {% for wish in wishlists %}
+        <!-- Product #1 -->
+        <div class="item row align-items-center px-4 py-2" id="remove-icon{{wish.variant.id}}">
+          <div class="image col-lg-3 col-md-2 col-sm-12 my-2">
+            <img
+              src="{{wish.variant.thumbnail.url}}"
+              alt="{{wish.variant.product.title}}"
+              class="mx-auto d-block"
+              alt=""
+            />
+          </div>
+
+          <div class="description col-lg-3 col-md-3 col-sm-12 my-2">
+            <span>{{wish.variant.product.title}}</span>
+            <span>{{wish.variant.color}}</span>
+            <span>{{wish.variant.size}}</span>
+          </div>
+          <div class="total-price col-lg-3 col-md-1 col-sm-12 my-2">
+            ₹{{wish.variant.discount_price}}
+          </div>
+
+          <div class="buttons col-lg-3 col-md-2 col-sm-12 my-2">
+            {% if wish.in_cart %}
+            <span>Already in cart</span>
+            {% else %}
+            <a href="#" hx-get="{% url 'addcart' wish.variant.id %}" hx-target="#cart-icon{{wish.variant.id}}" hx-swap="outerHTML"><i id="cart-icon{{wish.variant.id}}" class="fa fa-shopping-cart"></i></a></li>
+
+            {% comment %} <a href="{% url 'addcart' wish.variant.id %}">
+              <i class="fas fa-shopping-cart" ></i>
+            </a> {% endcomment %}
+            {% endif %}
+            <a href="#" hx-get="{% url 'remove_wishlist' wish.variant.id %}" hx-target="#remove-icon{{wish.variant.id}}" hx-swap="outerHTML"><i class="fas fa-times"></i></a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <h2>Nothing in wish.. Why don't you go shopping..</h2>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- Cart End -->
+{% endblock body %}
+{% block infos %}
+<p class="mb-4">{{information.bio}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
+<p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
+{% endblock infos %}
+{% block fsocial %}
+<div class="d-flex">
+    <a class="btn btn-primary btn-square mr-2" href="{{information.twitter}}"><i class="fab fa-twitter"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.facebook}}"><i class="fab fa-facebook-f"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+    <a class="btn btn-primary btn-square" href="{{information.instagram}}"><i class="fab fa-instagram"></i></a>
+</div>
+{% endblock fsocial %}

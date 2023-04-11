@@ -1,0 +1,285 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav-phone %}
+<a href="tel:{{information.phone}}">{{information.phone}}</a>
+{% endblock nav-phone %}
+{% block wishlist %}{{wish_count}}{% endblock wishlist %}
+{% block cart %}{{cart_count}}{% endblock cart %}
+{% block body %}
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="{% url 'index' %}">Home</a>
+                <a class="breadcrumb-item text-dark" href="{% url 'profile' %}">{{request.user.name}}</a>   
+                <span class="breadcrumb-item active">Checkout</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Checkout Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <h5 class="section-title position-relative text-uppercase mb-1"><span class="bg-white pr-3">Address</span></h5>
+            {% if addresses %}
+            <div class="bg-light p-30 mb-2">
+                <h5>Select an Address <span class="text-danger">*</span></h5>
+                <form action="{% url 'payment' %}" id="paymentForm">
+                    <input type="hidden" name="order_id" value="{{payment.id}}">
+                    <input type="hidden" name="amount" value="{{total_amount}}">
+
+                    <div class="row">
+                        {% for address in addresses %}
+                        <div class="col-lg-6">
+                            <div class="bg-light p-3 mb-2">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                            {% if forloop.counter == 1 %}
+                                            <input type="radio" name="custid"
+                                            id="custadd{{forloop.counter}}" value="{{address.id}}" checked>
+                                            {% else %}
+                                            <input type="radio" name="custid"
+                                            id="custadd{{forloop.counter}}" value="{{address.id}}">
+                                            {% endif %}
+                                    </div>
+                                    <div class="col-lg-11" >
+                                        <div class="d-flex justify-content-between">
+                                            <label for="custadd{{forloop.counter}}"><h6 class="mb-1">{{address.name}} {{address.phone}}</h6></label>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <label for="custadd{{forloop.counter}}">{{address.address_line1}}, {{address.address_line2}},</label >
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <label for="custadd{{forloop.counter}}">{{address.landmark}}, {{address.city}}: {{address.pincode}},</label >
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <label for="custadd{{forloop.counter}}">{{address.state}}, {{address.country}}.</label >
+                                        </div>
+                                        <a href="{% url 'remove_address' address.id %}" class="text-danger">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </form>
+                
+            </div>
+            {% endif %}
+            <div class="mb-5">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-white pr-3">Shipping
+                        Address</span></h5>
+                <div class="bg-light p-30">
+                    <div class="row">
+                        <form action="{% url 'profile' %}" method="post" id="checkoutForm" novalidate="novalidate">
+                            {% csrf_token %}
+                            <input type="hidden" name="orders" value="orders">
+                            <div class="row">
+                                <div class="col-md-6 control-group">
+                                    <label>Name</label>
+                                    <input name="name" class="form-control" type="text" placeholder="John Smith"
+                                       required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-md-6 control-group">
+                                    <label>E-mail</label>
+                                    <input name="email" class="form-control" type="email"
+                                        placeholder="example@email.com"required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-md-6 control-group">
+                                    <label>Mobile No</label>
+                                    <input name="phone" class="form-control" type="tel" placeholder="+123 456 789"
+                                       required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-md-6 control-group">
+                                    <label>Address Line 1</label>
+                                    <input name="address" class="form-control" type="text" placeholder="123 Street"
+                                       required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-md-6 control-group">
+                                    <label>Address Line 2</label>
+                                    <input name="address2" class="form-control" type="text" placeholder="123 Street"
+                                       required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-md-6 control-group">
+                                    <label>Landmark</label>
+                                    <input name="landmark" class="form-control" type="text" placeholder="Queen Tower"
+                                       required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-md-6 control-group">
+                                    <label>City</label>
+                                    <input name="city" class="form-control" type="text" placeholder="Mumbai"
+                                       required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-md-6 control-group">
+                                    <label>ZIP Code</label>
+                                    <input name="pincode" class="form-control" type="text" placeholder="400000"
+                                       required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-md-6 control-group">
+                                    <label>State</label>
+                                    <input name="state" class="form-control" type="text" placeholder="Maharahtra"
+                                       required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-md-6 control-group">
+                                    <label>Country</label>
+                                    <select name="country" class="custom-select">
+                                        <option>Afghanistan</option>
+                                        <option>Albania</option>
+                                        <option>Algeria</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <strong>
+                                        <p>Submit before placing order*</p>
+                                    </strong>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <button type="submit" class="btn btn-block btn-primary font-weight-bold">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span
+                    class="bg-white pr-3">Order Summary</span></h5>
+            {% for cart in carts %}
+            <div class="row justify-content-center align-items-center p-3 text-capitalize" id="remove-icon{{cart.variant.id}}">
+                <div class="col-lg-4 col-sm-12 col-12">
+                    <img class="mx-auto d-block" src="{{cart.variant.thumbnail.url}}" alt="" width="100px">
+                </div>
+                <div class="col-lg-7 col-sm-9 col-9">
+                    <a href="{% url 'product' cart.variant.slug %}">
+                        <h4 class="mb-2">{{cart.variant.product.title}}</h5>
+                    </a>
+                    <h6 style="font-size:14px; color: grey;"><b>Size:</b> {{cart.variant.size}}</h6>
+                    <h6 style="font-size:14px; color: grey;"><b>Colour:</b> {{cart.variant.color}}</h6>
+                    <h6 style="font-size:14px; color: grey;"><b>Quantity:</b> {{cart.quantity}}</h6>
+                    <h6 style="font-size:14px; color: grey;"><b>Price:</b> {{cart.variant.discount_price}}</h6>
+                    <h6 style="font-size:14px; color: grey;"><b>Subtotal:</b> {{cart.total_amount}}</h6>
+                </div>
+                <div class="col-lg-1 col-sm-3 col-3">
+                    <a href="#" hx-get="{% url 'remove_cart' cart.variant.id %}" hx-target="#remove-icon{{cart.variant.id}}" hx-swap="outerHTML"><i class="fas fa-times"></i></a>
+
+                </div>
+            </div>
+            {% endfor %}
+            <p class="fw-bold mb-1">Total Price + Shipping Charges (Rs. {{shipping}}) = {{total_amount}}</p>
+                <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam
+                    saepe! Iure optio repellat dolor velit, minus rem.</small>
+            <div class="text-center mt-3">
+                {% if addresses %}
+                <button id="rzp-button1" class="btn btn-primary p-2">Pay with Razorpay</button>
+                {% else %}
+                <button class="btn btn-primary p-2" onclick="addAddress()">Pay with Razorpay</button>
+                {% endif %}
+            </div>
+            {% comment %} <div class="mb-5">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span
+                        class="bg-secondary pr-3">Payment</span></h5>
+                <div class="bg-light p-30">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="payment" id="paypal">
+                            <label class="custom-control-label" for="paypal">Paypal</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="payment" id="directcheck">
+                            <label class="custom-control-label" for="directcheck">Direct Check</label>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
+                            <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
+                </div>
+            </div> {% endcomment %}
+
+        </div>
+    </div>
+</div>
+<!-- Checkout End -->
+
+{% endblock body %}
+{% block infos %}
+<p class="mb-4">{{information.bio}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
+<p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
+{% endblock infos %}
+{% block fsocial %}
+<div class="d-flex">
+    <a class="btn btn-primary btn-square mr-2" href="{{information.twitter}}"><i class="fab fa-twitter"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.facebook}}"><i class="fab fa-facebook-f"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+    <a class="btn btn-primary btn-square" href="{{information.instagram}}"><i class="fab fa-instagram"></i></a>
+</div>
+{% endblock fsocial %}
+{% block script %}
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function addAddress() {
+    alert("Add and Select an Address");
+}
+var options = {
+    "key": "rzp_test_ktEC1FMJkGwcBD", // Enter the Key ID generated from the Dashboard
+    "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Quilts Shop",
+    "description": "Test Transaction",
+    "image": "https://t4.ftcdn.net/jpg/04/42/01/81/360_F_442018137_F4FTedsmVBxmaibxMKuNbeIms8Xkk1e4.jpg",
+    "order_id": "{{payment.id}}", // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        console.log("success 1")
+        $("#paymentForm").submit(function(eventObj) {
+            console.log("success 2")
+            $(this).append(`<input type="hidden" name="payment_id" value="${response.razorpay_payment_id}" /> `);
+            $(this).append(`<input type="hidden" name="signature" value="${response.razorpay_signature}" /> `);
+            return true;
+        });
+        $("#paymentForm").submit();
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature)
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+{% endblock script %}

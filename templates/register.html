@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav-phone %}
+<a href="tel:{{information.phone}}">{{information.phone}}</a>
+{% endblock nav-phone %}
+
+{% load crispy_forms_tags %}
+{% block wishlist %}{{wish_count}}{% endblock wishlist %}
+{% block cart %}{{cart_count}}{% endblock cart %}
+{% block body %}
+
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+</div>
+<!-- Breadcrumb End -->
+
+<div class="container py-xl-5">
+    <div class="row px-xl-5 align-items-center">
+        <div class="col-lg-6">
+            <img src="{% static 'img/login-img.jpg' %}" alt="" class="img-fluid">
+        </div>
+        <div class="col-lg-6">
+            <h2 class="section-title position-relative text-uppercase mb-4"><span class="pr-3">Register</span></h2>
+            {% crispy form %}
+             <p align="center" class="mt-3">Already have an account? <a href="{% url 'login' %}" style="color: rgb(162, 159, 165);">Login</a></p>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{% block infos %}
+<p class="mb-4">{{information.bio}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
+<p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
+{% endblock infos %}
+{% block fsocial %}
+<div class="d-flex">
+    <a class="btn btn-primary btn-square mr-2" href="{{information.twitter}}"><i class="fab fa-twitter"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.facebook}}"><i class="fab fa-facebook-f"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+    <a class="btn btn-primary btn-square" href="{{information.instagram}}"><i class="fab fa-instagram"></i></a>
+</div>
+{% endblock fsocial %}

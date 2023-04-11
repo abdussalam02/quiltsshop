@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav-phone %}
+<a href="tel:{{information.phone}}">{{information.phone}}</a>
+{% endblock nav-phone %}
+
+{% block wishlist %}{{wish_count}}{% endblock wishlist %}
+{% block cart %}{{cart_count}}{% endblock cart %}
+{% block body %}
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="{% url 'index' %}">Home</a>
+                    <a class="breadcrumb-item text-dark" href="{% url 'profile' %}">{{request.user.name}}</a>
+                    <span class="breadcrumb-item active">Profile</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5 justify-content-center">
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-white pr-3">Profile</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <form action="{% url 'profile' %}" method="post" id="checkoutForm" novalidate="novalidate">
+                        {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 control-group">
+                            <label>Name</label>
+                            <input name="name" class="form-control" type="text" placeholder="John Smith" required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="col-md-6 control-group">
+                            <label>E-mail</label>
+                            <input name="email" class="form-control" type="email" placeholder="example@email.com"  required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="col-md-6 control-group">
+                            <label>Mobile No</label>
+                            <input name="phone" class="form-control" type="tel" placeholder="+123 456 789"  required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="col-md-6 control-group">
+                            <label>Address Line 1</label>
+                            <input name="address" class="form-control" type="text" placeholder="123 Street"  required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="col-md-6 control-group">
+                            <label>Address Line 2</label>
+                            <input name="address2" class="form-control" type="text" placeholder="123 Street"  required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="col-md-6 control-group">
+                            <label>Landmark</label>
+                            <input name="landmark" class="form-control" type="text" placeholder="Queen Tower"  required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="col-md-6 control-group">
+                            <label>City</label>
+                            <input name="city" class="form-control" type="text" placeholder="Mumbai"  required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="col-md-6 control-group">
+                            <label>ZIP Code</label>
+                            <input name="pincode" class="form-control" type="text" placeholder="400000"  required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="col-md-6 control-group">
+                            <label>State</label>
+                            <input name="state" class="form-control" type="text" placeholder="Maharahtra"  required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="col-md-6 control-group">
+                            <label>Country</label>
+                            <select name="country" class="custom-select">
+                                <option>Afghanistan</option>
+                                <option>Albania</option>
+                                <option>Algeria</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Submit</button>
+
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+            {% if addresses %}
+            <div class="col-lg-4">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-white pr-3">Address</span></h5>
+
+                {% for address in addresses %}
+                <div class="bg-light p-3 mb-3">
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <label for="custadd{{forloop.counter}}"><h6 class="mb-1">{{address.name}} {{address.phone}}</h6></label>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <label for="custadd{{forloop.counter}}">{{address.address_line1}}, {{address.address_line2}}, {{address.landmark}}</label >
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <label for="custadd{{forloop.counter}}">{{address.city}}: {{address.pincode}}</label >
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <label for="custadd{{forloop.counter}}">{{address.state}}, {{address.country}}</label >
+                        </div>
+                        <a href="{% url 'remove_address' address.id %}" class="text-danger">Remove</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Checkout End -->
+    
+{% endblock body %}
+{% block infos %}
+<p class="mb-4">{{information.bio}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
+<p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
+{% endblock infos %}
+{% block fsocial %}
+<div class="d-flex">
+    <a class="btn btn-primary btn-square mr-2" href="{{information.twitter}}"><i class="fab fa-twitter"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.facebook}}"><i class="fab fa-facebook-f"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+    <a class="btn btn-primary btn-square" href="{{information.instagram}}"><i class="fab fa-instagram"></i></a>
+</div>
+{% endblock fsocial %}

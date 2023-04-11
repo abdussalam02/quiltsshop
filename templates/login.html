@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav-phone %}
+<a href="tel:{{information.phone}}">{{information.phone}}</a>
+{% endblock nav-phone %}
+{% load crispy_forms_tags %}
+{% block wishlist %}{{wish_count}}{% endblock wishlist %}
+{% block cart %}{{cart_count}}{% endblock cart %}
+{% block body %}
+
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+</div>
+<!-- Breadcrumb End -->
+
+<!-- <div class="container py-xl-5">
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+{{message}}
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+</div>
+{% endfor %}
+    <div class="row px-xl-5 align-items-center">
+        <div class="col-lg-6">
+            <img src="{% static 'img/login-img.jpg' %}" alt="" class="img-fluid">
+        </div>
+        <div class="col-lg-6">
+            <h2 class="section-title position-relative text-uppercase mb-4"><span class="bg-white pr-3">Login</span></h2>
+            <form action="{% url 'login' %}" method="POST" id="loginForm" novalidate="novalidate">
+                {% csrf_token %}
+                <div class="control-group mb-3">
+                    <label>E-mail</label>
+                    <input class="form-control" type="email" name="email" placeholder="example@gmail.com" required="required" data-validation-required-message="Please enter your email" />
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div class="control-group mb-3">
+                    <label>Password</label>
+                    <input class="form-control" type="password" name="password" required="required" data-validation-required-message="Please enter your password" />
+                    <p class="help-block text-danger"></p>
+                </div>
+                <p><a href="">Forgot Password</a></p>
+                <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Login</button>
+            </form>
+            <p align="center" class="mt-3">Don't have an account? <a href="{% url 'register' %}" class="text-secondary bg-white">Register</a></p>
+        </div>
+    </div>
+    
+</div> -->
+
+<div class="container py-xl-5">
+    <div class="row px-xl-5 align-items-center">
+        <div class="col-lg-6">
+            <img src="{% static 'img/login-img.jpg' %}" alt="" class="img-fluid">
+        </div>
+        <div class="col-lg-6">
+            <h2 class="section-title text-center text-uppercase mb-4"><span class="bg-white pr-3">Login</span></h2>
+            {% crispy form %}
+            <p align="center" class="mt-3">Don't have an account? <a href="{% url 'register' %}" class="text-secondary bg-white">Register</a></p>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{% block infos %}
+<p class="mb-4">{{information.bio}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
+<p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
+{% endblock infos %}
+{% block fsocial %}
+<div class="d-flex">
+    <a class="btn btn-primary btn-square mr-2" href="{{information.twitter}}"><i class="fab fa-twitter"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.facebook}}"><i class="fab fa-facebook-f"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+    <a class="btn btn-primary btn-square" href="{{information.instagram}}"><i class="fab fa-instagram"></i></a>
+</div>
+{% endblock fsocial %}

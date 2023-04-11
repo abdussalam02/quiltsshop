@@ -1,0 +1,271 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Burak - The Quilts Shop</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico'%}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    {% block css %}{% endblock css %}
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <!-- <div class="row bg-secondary py-1 px-xl-5">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center h-100">
+                    <a class="text-body mr-3" href="">About</a>
+                    <a class="text-body mr-3" href="">Contact</a>
+                    <a class="text-body mr-3" href="">Help</a>
+                    <a class="text-body mr-3" href="">FAQs</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">Sign in</button>
+                            <button class="dropdown-item" type="button">Sign up</button>
+                        </div>
+                    </div>
+                    <div class="btn-group mx-2">
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">EUR</button>
+                            <button class="dropdown-item" type="button">GBP</button>
+                            <button class="dropdown-item" type="button">CAD</button>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">FR</button>
+                            <button class="dropdown-item" type="button">AR</button>
+                            <button class="dropdown-item" type="button">RU</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-inline-flex align-items-center d-block d-lg-none">
+                    <a href="" class="btn px-0 ml-2">
+                        <i class="fas fa-heart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                    <a href="" class="btn px-0 ml-2">
+                        <i class="fas fa-shopping-cart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+        <!-- ///yahse main comm hai// -->
+
+        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
+            <div class="col-lg-4">
+                <a href="" class="text-decoration-none">
+                    <span class="h1 text-uppercase text-primary  px-2  " style="background-color: var(--primary-color)";>Quilts</span>
+                    <span class="h1 text-uppercase text-dark px-2 ml-n1" style="background-color: #FBF3F0">Shop</span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-6 text-left">
+                <form action="{% url 'searched' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" name="query" class="form-control" placeholder="Search for products">
+
+                        <div  class="input-group-append">
+                            <button type="submit" style="background-color: var(--primary-color); border: -1px solid var(--btn-primary-color);">
+                                    <i class="fa fa-search px-3 " style="color: #fff;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4 col-6 text-right">
+                <p class="m-0">Customer Service</p>
+                <h5 class="m-0">{% block nav-phone %}{% endblock nav-phone %}</h5>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid mb-30" style="background-color: #00234D;">
+        <div class="row px-xl-5">
+            
+            <div class="col-lg-12">
+                <nav class="navbar  navbar-expand-lg navbar-dark py-3 py-lg-0 px-0"  style="background-color: #00234D;">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <span class="h1 text-uppercase text-dark bg-light px-2">Quilts</span>
+                        <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="{% url 'index' %}" class="nav-item nav-link active ">Home</a>
+                            <a href="{% url 'category' 'Quilts' %}" class="nav-item nav-link ">Quilts</a>
+                            <a href="{% url 'category' 'Bed Covers' %}" class="nav-item nav-link ">Bed Covers</a>
+                            <a href="{% url 'category' 'Bed Sheets' %}" class="nav-item nav-link ">Bed Sheets</a>
+                            <a href="{% url 'category' 'Pillow Covers' %}" class="nav-item nav-link ">Pillow Covers</a>
+                            <a href="{% url 'category' 'Kid Quilts' %}" class="nav-item nav-link ">Kid Quilts</a>
+                            <a href="{% url 'blogs' %}" class="nav-item nav-link ">Blogs</a>
+                            <a href="{% url 'contact' %}" class="nav-item nav-link ">Contact</a>
+                        </div>
+                        <a href="{% url 'wishlist' %}" class="nav-item nav-link">
+                            <i class="fas fa-heart text-primary"></i>
+                            <span class="badge text-secondary border border-secondary rounded-circle"
+                                style="padding-bottom: 2px;">{% block wishlist %}{% endblock wishlist %}</span>
+                        </a>
+                        <a href="{% url 'cart' %}" class="nav-item nav-link">
+                            <i class="fas fa-shopping-cart text-primary"></i>
+                            <span class="badge text-secondary border border-secondary rounded-circle"
+                                style="padding-bottom: 2px;">{% block cart %}{% endblock cart %}</span>
+                        </a>
+                        {% if request.user.is_authenticated %}
+                        <div class="nav-item dropdown mx-3">
+                            <a href="#" class="nav-link  text-primary dropdown-toggle" data-toggle="dropdown">{{request.user.name}}<i class="fa fa-angle-down"></i></a>
+                            <div class="dropdown-menu rounded-0 border-0 m-0">
+                                <a href="{% url 'profile' %}" class="dropdown-item">Profile</a>
+                                <a href="{% url 'cart' %}" class="dropdown-item">Carts</a>
+                                <a href="{% url 'wishlist' %}" class="dropdown-item">Wishlist</a>
+                                <a href="{% url 'orders' %}" class="dropdown-item">Orders</a>
+                                <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="login-btn ml-3">
+                            <i class="fas fa-user text-primary"></i>
+                            <span >Login</span>
+                        </a>
+                        <a href="{% url 'register' %}" class="login-btn ml-3">
+                            <i class="fas fa-user-plus text-primary"></i>
+                            <span >Register</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End
+
+    {% block body %}
+
+    {% endblock body %}
+
+
+    <!-- Footer Start -->
+    
+    <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <h5 class="text-secondary text-uppercase mb-4 "><b> Get In Touch</b></h5>
+                {% block infos %}
+                {% endblock infos %}
+          
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4"><b>Links</b></h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-secondary mb-2" href="{% url 'index' %}"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-secondary mb-2" href="{% url 'blogs' %}"><i class="fa fa-angle-right mr-2"></i>Blogs</a>
+                            {% comment %} <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About Us</a> {% endcomment %}
+                            <a class="text-secondary mb-2" href="{% url 'contact' %}"><i class="fa fa-angle-right mr-2"></i>Contact</a>
+                            <a class="text-secondary mb-2" href="{% url 'login' %}"><i class="fa fa-angle-right mr-2"></i>Login</a>
+                            <a class="text-secondary" href="{% url 'register' %}"><i class="fa fa-angle-right mr-2"></i>Register</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4"><b>Quick Shop</b></h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-secondary mb-2" href="{% url 'category' 'Quilts' %}"><i class="fa fa-angle-right mr-2"></i>Quilts</a>
+                            <a class="text-secondary mb-2" href="{% url 'category' 'Bed Covers' %}"><i class="fa fa-angle-right mr-2"></i>Bed Covers</a>
+                            <a class="text-secondary mb-2" href="{% url 'category' 'Bed Sheets' %}"><i class="fa fa-angle-right mr-2"></i>Bed Sheets</a>
+                            <a class="text-secondary mb-2" href="{% url 'category' 'Pillow Covers' %}"><i class="fa fa-angle-right mr-2"></i>Pillow Covers</a>
+                            <a class="text-secondary" href="{% url 'category' 'Kid Quilts' %}"><i class="fa fa-angle-right mr-2"></i>Kid Quilts</a>
+                        
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4"><b>Newsletter</b></h5>
+                        <p>Duo stet tempor ipsum sit amet magna ipsum tempor est</p>
+                        <form action="{% url 'subscribe' %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input name="email" type="text" class="form-control" placeholder="Your Email Address">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary">Subscribe</button>
+                                </div>
+                            </div>
+                        </form>
+                        <h6 class="text-secondary text-uppercase mt-4 mb-3"><b>Follow Us</b></h6>
+                        {% block fsocial %}
+                        {% endblock fsocial %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+            <div class="col-md-6 px-xl-0">
+
+            </div>
+            <div class="col-md-6 px-xl-0 text-center text-md-right">
+                <img class="img-fluid" src="{% static 'img/payments.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.8.6/htmx.min.js" integrity="sha512-SqV24lSRcthd1Bg0Obg/W/qWhKdSsQPIV342MQd8qDeeY/gJt+2qmsLhutblQNDuUx0Xs2Jh7D8m+7S1b0wQyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    {% block script %}
+
+    {% endblock script %}
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

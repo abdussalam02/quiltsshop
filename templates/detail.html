@@ -1,0 +1,314 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav-phone %}
+<a href="tel:{{information.phone}}">{{information.phone}}</a>
+{% endblock nav-phone %}
+{% block wishlist %}{{wish_count}}{% endblock wishlist %}
+{% block cart %}{{cart_count}}{% endblock cart %}
+{% block body %}
+
+Breadcrumb Start
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="{% url 'index' %}">Home</a>
+                <a class="breadcrumb-item text-dark" href="{% url 'all_product' %}">Product</a>
+                <span class="breadcrumb-item active">{{product.title}} {{variant.color}} {{variant.size}}</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Shop Detail Start -->
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 col-sm-12 col-md-12 mb-30 text-center">
+            <img class="xzoom zoom-feature img-fluid" id="xzoom-default" src="{{ variant.thumbnail.url }}"
+                xoriginal="{{ variant.thumbnail.url }}" />
+            <div class="xzoom-thumbs m-2">
+                <a href="{{ variant.thumbnail.url }}"><img class="xzoom-gallery" width="80" height="80"
+                        src="{{ variant.thumbnail.url }}" xpreview="{{ variant.thumbnail.url }}"></a>
+                {% for image in product.images.all %}
+                <a href="{{ image.image.url }}"><img class="xzoom-gallery" width="80" height="80"
+                        src="{{ image.image.url }}" xpreview="{{ image.image.url }}"></a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-lg-7 col-sm-12 col-md-12 h-auto mb-30 detail-content">
+            <div class="h-100 bg-light p-30">
+
+                <!-- <span class="stock mb-3">In Stock</span> -->
+                <!-- <h6> <b>SKU:</b> 401</h6> -->
+                {% if variant.quantity < 1 %} 
+                <span class="stock mb-3 bg-danger">Out of Stock</span>
+                {% else %}
+                <span class="stock mb-3">In Stock</span>
+                {% endif %}
+
+                <h3 class="detail-title">{{product.title}} {{variant.color}} {{variant.size}}</h3>
+                <div class="d-flex mb-3">
+                    <div class="mr-2 detail-rating">
+                        <span class="{% if product.average_rating > 0 %} fas{% else %} far{% endif %} fa-star"></span>
+                        <span class="{% if product.average_rating > 1 %} fas{% else %} far{% endif %} fa-star"></span>
+                        <span class="{% if product.average_rating > 2 %} fas{% else %} far{% endif %} fa-star"></span>
+                        <span class="{% if product.average_rating > 3 %} fas{% else %} far{% endif %} fa-star"></span>
+                        <span class="{% if product.average_rating > 4 %} fas{% else %} far{% endif %} fa-star"></span>
+
+                    </div>
+                    <small class="pt-1">({{product.review_count}} Reviews)</small>
+                </div>
+
+                <div class="d-flex">
+                    <h3 class="mb-2 mx-2">₹{{variant.discount_price}}</h3>
+                    <h3 class="mb-2 mx-2 text-danger">{{variant.discount_percent}}%</h3>
+                </div>
+
+                <h5 class="text-muted ml-2 mb-2"><del>₹{{variant.sell_price}}</del></h5>
+                <p>Inclusive of all taxes.</p>
+                <p class="mb-2">{{product.short_description}}</p>
+                {% if variant.quantity < 10 and variant.quantity > 0 %}
+                <h4 class="text-danger mb-3">Hurry Up!!! Only {{variant.quantity}} items left</h4>
+                {% elif variant.quantity < 1 %}
+                <h4 class="text-danger mb-3">Product out of stock. Sorry :)</h4>
+                {% endif %}
+                <p>Available Combinations:</p>
+                <div class="row text-uppercase">
+                    {% for var in colors %}
+                    <div class="col-lg-1 mb-3">
+                        <a href="{% url 'product' var.slug %}">
+                            <div class="detail-circles" style="background-color: {{var.color}}; {% if var.color == variant.color %} border: 3px solid black;{% endif %}"></div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="sizes">
+                    {% for var in variant.product.variants.all %}
+                    {% if var.color == variant.color %}
+                    <button class="btn-circle" ><a href="{% url 'product' var.slug %}">{{var.size}}</a></button>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% if variant.quantity < 1 %}
+                <button type="none" class="btn btn-danger disabled px-3 my-3"><i class="fa fa-shopping-cart mr-1"></i>Out of Stock</button>
+                <a href="#" class="btn mx-3 rounded" hx-get="{% url 'addwish' variant.id %}" hx-target=".wish-icon{{variant.id}}" hx-swap="outerHTML"><i class="wish-icon{{variant.id}} far fa-heart"></i></a>
+                {% else %}
+                <form action="{% url 'addcart' variant.id %}" method="post" class="cart-form mt-3">
+                    {% csrf_token %}
+                    <div class="d-flex align-items-center mb-4 pt-2">
+                        <div class="input-group quantity mr-3" style="width: 130px;">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-minus">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input type="text" name="quantity" class="form-control bg-secondary border-0 text-center" value="1">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-plus">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                        <a href="#" class="btn mx-3 rounded" hx-get="{% url 'addwish' variant.id %}" hx-target=".wish-icon{{variant.id}}" hx-swap="outerHTML"><i class="wish-icon{{variant.id}} far fa-heart"></i></a>
+                    </div>    
+                </form>
+                {% endif %}
+                <p class="text-dark pt-2">Share on:</p>
+                <div class="d-flex icons-social justify-content-start">
+                    {% load social_share %}
+                    {% post_to_facebook object_or_url '<i class="fab fa-facebook-f" aria-hidden="true"></i>' %}
+                    {% post_to_twitter "{{product.title}} - Check it out!" object_or_url '<i class="fab fa-twitter" aria-hidden="true"></i>'%}
+                    {% post_to_whatsapp object_or_url '<i class="fab fa-whatsapp"></i>'%}
+                    {% post_to_telegram "{{product.title}} - Check it out!" object_or_url '<i class="fab fa-telegram-plane" aria-hidden="true"></i>'%}
+                    {% copy_to_clipboard object_or_url '<i class="far fa-copy" aria-hidden="true"></i>' %}
+                    {% add_copy_script %}
+                </div>
+                <hr>
+                <div class="row justify-content-around text-center">
+                    <div class="col-lg-3 col-6 extra-icons">
+                        <i class="fas fa-sync"></i>
+                        <p>Replacement</p>
+                    </div>
+                    <div class="col-lg-3 col-6 extra-icons">
+                        <i class="fas fa-tools"></i>
+                        <p>Warranty</p>
+                    </div>
+                    <div class="col-lg-3 col-6 extra-icons">
+                        <i class="fas fa-shipping-fast"></i>
+                        <p>Free Delivery</p>
+                    </div>
+                    <div class="col-lg-3 col-6 extra-icons">
+                        <i class="fas fa-wallet"></i>
+                        <p>Cash on Delivery</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="bg-light p-30">
+                <div class="nav nav-tabs mb-4">
+                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Information</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews
+                        ({{product.review_count}})</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-pane-1">
+                        {{ product.description|safe }}
+                    </div>
+                    <div class="tab-pane fade" id="tab-pane-2">
+                        {{ product.features|safe }}
+                    </div>
+                    <div class="tab-pane fade" id="tab-pane-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="mb-4">{{product.review_count}} review for "{{product.title}}"</h4>
+                                {% for review in reviews %}
+                                <div class="media ">
+                                    <img src="{% static 'img/user.webp' %}" alt="Image" class="img-fluid mr-3 mt-1"
+                                        style="width: 45px;">
+                                    <div class="media-body">
+                                        <h6>{{review.user.name}}<small> - <i>{{review.date}}</i></small></h6>
+                                        <div class="detail-rating mb-2">
+                                            <span class="{% if review.rating > 0 %} fas {% else %} far {% endif %} fa-star"></span>
+                                            <span class="{% if review.rating > 1 %} fas {% else %} far {% endif %} fa-star"></span>
+                                            <span class="{% if review.rating > 2 %} fas {% else %} far {% endif %} fa-star"></span>
+                                            <span class="{% if review.rating > 3 %} fas {% else %} far {% endif %} fa-star"></span>
+                                            <span class="{% if review.rating > 4 %} fas {% else %} far {% endif %} fa-star"></span>
+                                        </div>
+                                        <p>{{review.comment}}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="mb-4">Leave a review</h4>
+                                <small>Your email address will not be published. Required fields are marked
+                                    *</small>
+                                <form action="{% url 'review' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="rating">
+                                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
+                                            title="5 stars"></label>
+                                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
+                                            title="4 stars"></label>
+                                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
+                                            title="3 stars"></label>
+                                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
+                                            title="2 stars"></label>
+                                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+                                            title="1 star"></label>
+                                    </div>
+                                    <input name="variant" type="hidden" class="form-control" value="{{variant.id}}">
+                                    <input name="product" type="hidden" class="form-control"
+                                        value="{{variant.product.id}}">
+                                    <div class="form-group">
+                                        <label for="name">Your Name</label>
+                                        <input name="name" type="text" class="form-control" id="name"
+                                            value="{{request.user.name}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message">Your Review</label>
+                                        <textarea name="review" id="message" cols="30" rows="4" class="form-control"
+                                            required="1"></textarea>
+                                    </div>
+                                    {% if request.user.is_authenticated %}
+                                    <div class="form-group mb-0">
+                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                    </div>
+                                    {% else %}
+                                    <div class="form-group mb-0">
+                                        <button class="btn btn-primary px-3" href="{% url 'login' %}"> Login to
+                                            Review</button>
+                                    </div>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Detail End -->
+
+
+{% if related_variants %}
+<!-- Products Start -->
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-white pr-3">Related
+            Products</span></h2>
+    <div class="row px-xl-5">
+        {% for variant in related_variants %}
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="product-grid">
+                <div class="product-image">
+                    <a href="{% url 'product' variant.slug %}" class="image">
+                        <img class="pic-1" src="{{variant.thumbnail.url}}">
+                    </a>
+                    <ul class="product-links">
+                        {% if request.user.is_authenticated %}
+                        <li><a href="#" hx-get="{% url 'addcart' variant.id %}" hx-target="#cart-icon{{variant.id}}" hx-swap="outerHTML"><i id="cart-icon{{variant.id}}" class="fa fa-shopping-cart"></i></a></li>
+                        <li><a href="#" hx-get="{% url 'addwish' variant.id %}" hx-target="#wish-icon{{variant.id}}" hx-swap="outerHTML"><i id="wish-icon{{variant.id}}" class="far fa-heart"></i></a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}"><i class="fa fa-shopping-cart"></i></a></li>
+                        <li><a href="{% url 'login' %}"><i class="far fa-heart"></i></a></li>
+                        {% endif %}
+                       <li><a href="{% url 'product' variant.slug %}"><i class="fa fa-search"></i></a></li>
+                    </ul>
+                </div>
+                <div class="product-content">
+                    <div class="card-rating">
+                        <span class="{% if variant.product.average_rating > 0 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 1 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 2 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 3 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 4 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <small>({{variant.product.review_count}})</small>
+                    </div>
+                    <div class="d-flex text-capitalize">
+                        <h6><b>Colors:</b></h6>
+                        {% for var in variant.product.variants.all %}
+                        <div class="color-circles" style="background-color: {{var.color}};"></div>
+                        {% endfor %}
+                    </div>
+                    <h3 class="title"><a href="{% url 'product' variant.slug %}">{{variant.product.title}} {{variant.color}} {{variant.size}}</a></h3>
+                    <div class="price">₹{{variant.discount_price}} <del>₹{{variant.sell_price}}</del></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Products End -->
+{% endif %}
+
+
+{% endblock body %}
+{% block infos %}
+<p class="mb-4">{{information.bio}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
+<p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
+{% endblock infos %}
+{% block fsocial %}
+<div class="d-flex">
+    <a class="btn btn-primary btn-square mr-2" href="{{information.twitter}}"><i class="fab fa-twitter"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.facebook}}"><i class="fab fa-facebook-f"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+    <a class="btn btn-primary btn-square" href="{{information.instagram}}"><i class="fab fa-instagram"></i></a>
+</div>
+{% endblock fsocial %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xzoom/1.0.15/xzoom.min.js"
+    integrity="sha512-kKt0oznSOD4MQo2nWJDWggE968N4Bvwn1VRr0RfMx1ozdC2FLCVLJDuHoeMfbWZU/F50yANpekr6dNTVfaLKdA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock script %}

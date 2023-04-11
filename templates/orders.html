@@ -1,0 +1,422 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav-phone %}
+<a href="tel:{{information.phone}}">{{information.phone}}</a>
+{% endblock nav-phone %}
+{%block css %}
+<style>
+    p {
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+    .small {
+        letter-spacing: 0.5px !important;
+    }
+
+    .card-1 {
+        box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
+        border-radius: 0.5em;
+    }
+
+    hr {
+        background-color: rgba(248, 248, 248, 0.667);
+    }
+
+
+    .bold {
+        font-weight: 500;
+    }
+
+    .change-color {
+        color: #AB47BC !important;
+    }
+
+    .card-2 {
+        box-shadow: 1px 1px 3px 0px rgb(112, 115, 139);
+
+    }
+
+    .fa-circle.active {
+        font-size: 8px;
+        color: #AB47BC;
+    }
+
+    .fa-circle {
+        font-size: 8px;
+        color: #aaa;
+    }
+
+    .rounded {
+        border-radius: 2.25rem !important;
+    }
+
+
+    .progress-bar {
+        background-color: #AB47BC !important;
+    }
+
+
+    .progress {
+        height: 5px !important;
+        margin-bottom: 0;
+    }
+
+    .invoice {
+        position: relative;
+        top: -70px;
+    }
+
+    .Glasses {
+        position: relative;
+        top: -12px !important;
+    }
+
+    .card-footer {
+        background-color: var(--primary-color);
+        color: #fff;
+    }
+
+    h2 {
+        color: #fff;
+        letter-spacing: 2px !important;
+    }
+
+    .total-price {
+        font-weight: 500 !important;
+        color: #fff;
+    }
+
+    @media (max-width: 479px) {
+        .invoice {
+            position: relative;
+            top: 7px;
+        }
+
+        .border-line {
+            border-right: 0px solid rgb(226, 206, 226) !important;
+        }
+
+    }
+
+    @media (max-width: 700px) {
+
+        h2 {
+            color: #fff;
+            font-size: 17px;
+        }
+
+        .total-price {
+            font-size: 28px;
+            font-weight: 500 !important;
+        }
+    }
+    .card-footer small {
+        letter-spacing: 7px !important;
+        font-size: 12px;
+    }
+    .border-line {
+        border-right: 1px solid rgb(226, 206, 226)
+    }
+    .track {
+            position: relative;
+            background-color: #ddd;
+            height: 7px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            margin-bottom: 60px;
+            margin-top: 50px
+        }
+
+        .track .step {
+            -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            width: 25%;
+            margin-top: -15px;
+            text-align: center;
+            position: relative
+        }
+
+        .track .step.active:before {
+            background: #00234D;
+        }
+
+        .track .step::before {
+            height: 7px;
+            position: absolute;
+            content: "";
+            width: 100%;
+            left: 0;
+            top: 15px
+        }
+
+        .track .step.active .icon {
+          background-color: #00234D;
+            color: #fff
+        }
+
+        .track .icon {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            position: relative;
+            border-radius: 100%;
+            color: white;
+            background-color: #00234D;
+        }
+
+        .track .step.active .text {
+            font-weight: 400;
+            color: #000
+        }
+
+        .track .text {
+            display: block;
+            margin-top: 7px
+        }
+
+
+
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+            .card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+    /* background-color: red; */
+}
+.container {
+    width: 104%;
+    padding-right: 12px;
+    padding-left: 1px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.track .text {
+    display: block;
+    margin-top: 7px;
+    font-size: 13px;
+}
+.track .step.active .text {
+    font-weight: 400;
+    color: #000;
+    font-size: 13px;
+}
+
+}
+
+@media only screen and (min-width: 320px) and (max-width: 425px) {
+
+.or h5{
+    font-size: 13px;
+ 
+}
+}
+.or b{
+   
+    font-size: 13px;
+}
+
+</style>
+{% endblock css %}
+{% block wishlist %}{{wish_count}}{% endblock wishlist %}
+{% block cart %}{{cart_count}}{% endblock cart %}
+{% block body %}
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="{% url 'index' %}">Home</a>
+                <a class="breadcrumb-item text-dark" href="{% url 'profile' %}">Profile</a>
+                <span class="breadcrumb-item active">Orders</span>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    {% for pay in payments %}
+    <div class="card card-1 mb-3">
+        <div class="card-header bg-white">
+            <div class="media flex-sm-row flex-column-reverse justify-content-between  ">
+                <div class="col my-auto">
+                    <div class="row">
+                        <div class="col-lg-4 mb-1">
+                            <h5 class="mb-0">Order Id</h5>
+                            <b>{{pay.order_id|upper}}</b>
+                        </div>
+                        <div class="col-lg-4 mb-1">
+                            <h5 class="mb-0">Placed On</h5>
+                            <b>{{pay.order_date}}</b>
+                        </div>
+                        <div class="col-lg-4 mb-1">
+                            <h5 class="mb-0">Expected Delivery</h5>
+                            <b>{{pay.expected_delivery}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% for var in pay.orders.all %}
+            <div class="row">
+                <div class="col">
+                    <div class="card card-2">
+                        <div class="card-body">
+                            <div class="media">
+                                <div class="sq align-self-center ">
+                                    <img
+                                        class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0"
+                                        src="{{var.variant.thumbnail.url}}" width="100px" height="100" /> </div>
+                                <div class="media-body my-auto text-right">
+                                    <div class="row my-auto flex-column flex-md-row text-center text-uppercase">
+                                        <div class="col my-auto">
+                                            <h6 class="mb-0">{{var.variant.product.title}}</h6>
+                                        </div>
+                                        <div class="col-auto my-auto">{{var.variant.color}}</div>
+                                        <div class="col my-auto"> Size: {{var.variant.size}}</div>
+                                        <div class="col my-auto"> Qty: {{var.quantity}}</div>
+                                        <div class="col my-auto">
+                                            <h6 class="mb-0">&#8377;{{var.total_amount}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-3 ">
+                            
+                            <div class="track">
+                                {% if var.status != "Pending" %}
+                                {% if var.status == "Accepted" %}
+                                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span
+                                        class="text">Order confirmed</span> </div>
+                                        
+                                <div class="step"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text">
+                                 Packed</span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On
+                                        the way </span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered</span> </div>
+                                {% endif %}
+                                {% if var.status == "Packed" %}
+                                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span
+                                        class="text">Order confirmed</span> </div>
+
+                                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text">
+                                 Packed</span> </div>
+                                 <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On
+                                    the way </span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered</span> </div>
+                            
+                                {% endif %}
+                                {% if var.status == "On the way" %}
+                                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span
+                                        class="text">Order confirmed</span> </div>
+                                        
+                                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text">
+                                 Packed</span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On
+                                        the way </span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered</span> </div>
+
+                                {% endif %}
+                                {% if var.status == "Delivered" %}
+                                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span
+                                        class="text">Order confirmed</span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text">
+                                 Packed</span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On
+                                        the way </span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered</span> </div>
+                                {% endif %}
+                                {% else %}
+                                <div class="step"> <span class="icon"> <i class="fa fa-check"></i> </span> <span
+                                    class="text">Order confirmed</span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text">
+                                 Packed</span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On
+                                        the way </span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered</span> </div>
+                            
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="row justify-content-between">
+                        <div class="col-lg-9">
+                            <p class="mb-1 text-dark"><b>Shipped to</b></p>
+                            <p class="mb-1">{{pay.address.name}} {{pay.address.phone}}</p>
+                            <p>{{pay.address.address_line1}}, {{pay.address.address_line2}},</p>
+                            <p>{{pay.address.landmark}}, {{pay.address.city}}: {{pay.address.pincode}},</p>
+                            <p>{{pay.address.state}}, {{pay.address.country}}.</p>
+
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="mb-1"><b>Total</b></p>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <p class="mb-1">&#8377; {{pay.amount}}</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="mb-1"> <b>Discount</b></p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="mb-1">&#8377; {{pay.discount}}</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="mb-1"><b>Delivery Charges</b></p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="mb-1">&#8377; 70.0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="jumbotron-fluid">
+                <div class="row justify-content-between ">
+                    <div class="col-auto my-auto ">
+                        <h2 class="mb-0">TOTAL PAID</h2>
+                    </div>
+                    <div class="col-auto my-auto ml-auto">
+                        <h2 class="total-price">&#8377; {{pay.amount}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+{% endblock body %}
+{% block infos %}
+<p class="mb-4">{{information.bio}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
+<p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
+{% endblock infos %}
+{% block fsocial %}
+<div class="d-flex">
+    <a class="btn btn-primary btn-square mr-2" href="{{information.twitter}}"><i class="fab fa-twitter"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.facebook}}"><i class="fab fa-facebook-f"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+    <a class="btn btn-primary btn-square" href="{{information.instagram}}"><i class="fab fa-instagram"></i></a>
+</div>
+{% endblock fsocial %}

@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav-phone %}
+<a href="tel:{{information.phone}}">{{information.phone}}</a>
+{% endblock nav-phone %}
+{% block wishlist %}{{wish_count}}{% endblock wishlist %}
+{% block cart %}{{cart_count}}{% endblock cart %}
+{% block body %}
+<!-- Carousel Start -->
+<div class="container-fluid mb-3">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#header-carousel" data-slide-to="1"></li>
+                    <li data-target="#header-carousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item position-relative active" style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="{% static 'img/bedsheet-1.jpg' %}"
+                            style="object-fit: cover;">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Men Fashion
+                                </h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem
+                                    magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                    href="#">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="{% static 'img/bedsheet-2.jpg' %}"
+                            style="object-fit: cover;">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Women
+                                    Fashion</h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem
+                                    magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                    href="#">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="{% static 'img/bedsheet-1.jpg' %}"
+                            style="object-fit: cover;">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Kids Fashion
+                                </h1>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem
+                                    magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                    href="#">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="product-offer mb-30" style="height: 200px;">
+                <img class="img-fluid" src="{% static 'img/bedsheet-4.jpg' %}" alt="">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a href="" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+            <div class="product-offer mb-30" style="height: 200px;">
+                <img class="img-fluid" src="{% static 'img/bedsheet-6.jpg' %}" alt="">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a href="" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
+
+
+<!-- Featured Start -->
+<!-- <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                </div>
+            </div>
+        </div>
+    </div> -->
+<!-- Featured End -->
+
+
+<!-- Categories Start -->
+<!-- <div class="container-fluid pt-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-3.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-3.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-3.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Category Name</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div> -->
+<!-- Categories End -->
+
+{% if variants %}
+<!-- Products Start -->
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-white pr-3">Featured
+            Products</span></h2>
+    <div class="row px-xl-5">
+        {% for variant in variants %}
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="product-grid">
+                <div class="product-image">
+                    <a href="{% url 'product' variant.slug %}" class="image">
+                        <img class="pic-1" src="{{variant.thumbnail.url}}">
+                    </a>
+                    <ul class="product-links">
+                        {% if request.user.is_authenticated %}
+                        <li><a href="#" hx-get="{% url 'addcart' variant.id %}" hx-target=".cart-icon{{variant.id}}" hx-swap="outerHTML"><i class="cart-icon{{variant.id}} fa fa-shopping-cart"></i></a></li>
+                        <li><a href="#" hx-get="{% url 'addwish' variant.id %}" hx-target=".wish-icon{{variant.id}}" hx-swap="outerHTML"><i class="wish-icon{{variant.id}} far fa-heart"></i></a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}"><i class="fa fa-shopping-cart"></i></a></li>
+                        <li><a href="{% url 'login' %}"><i class="far fa-heart"></i></a></li>
+                        {% endif %}
+                       <li><a href="{% url 'product' variant.slug %}"><i class="fa fa-search"></i></a></li>
+                    </ul>
+                </div>
+                <div class="product-content">
+                    <div class="card-rating">
+                        <span class="{% if variant.product.average_rating > 0 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 1 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 2 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 3 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 4 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <small>({{variant.product.review_count}})</small>
+                    </div>
+                    <div class="d-flex text-capitalize">
+                        <h6><b>Colors:</b></h6>
+                        {% for var in variant.product.variants.all %}
+                        <div class="color-circles" style="background-color: {{var.color}};"></div>
+                        {% endfor %}
+                    </div>
+                    <h3 class="title"><a href="{% url 'product' variant.slug %}">{{variant.product.title}} {{variant.color}} {{variant.size}}</a></h3>
+                    <div class="price">₹{{variant.discount_price}} <del>₹{{variant.sell_price}}</del></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Products End -->
+{% endif %}
+
+<!-- Offer Start -->
+<div class="container-fluid pt-5 pb-3">
+    <div class="row px-xl-5">
+        <div class="col-md-6">
+            <div class="product-offer mb-30" style="height: 300px;">
+                <img class="img-fluid" src="{% static 'img/bedsheet-6.jpg' %}" alt="">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a href="" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-offer mb-30" style="height: 300px;">
+                <img class="img-fluid" src="{% static 'img/bedsheet-4.jpg' %}" alt="">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">Save 20%</h6>
+                    <h3 class="text-white mb-3">Special Offer</h3>
+                    <a href="" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Offer End -->
+{% if recent_variants %}
+<!-- Products Start -->
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-white pr-3">Recent
+            Products</span></h2>
+    <div class="row px-xl-5">
+        {% for variant in recent_variants %}
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="product-grid">
+                <div class="product-image">
+                    <a href="{% url 'product' variant.slug %}" class="image">
+                        <img class="pic-1" src="{{variant.thumbnail.url}}">
+                    </a>
+                    <ul class="product-links">
+                        {% if request.user.is_authenticated %}
+                        <li><a href="#" hx-get="{% url 'addcart' variant.id %}" hx-target=".cart-icon{{variant.id}}" hx-swap="outerHTML"><i class="cart-icon{{variant.id}} fa fa-shopping-cart"></i></a></li>
+                        <li><a href="#" hx-get="{% url 'addwish' variant.id %}" hx-target=".wish-icon{{variant.id}}" hx-swap="outerHTML"><i class="wish-icon{{variant.id}} far fa-heart"></i></a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}"><i class="fa fa-shopping-cart"></i></a></li>
+                        <li><a href="{% url 'login' %}"><i class="far fa-heart"></i></a></li>
+                        {% endif %}
+                       <li><a href="{% url 'product' variant.slug %}"><i class="fa fa-search"></i></a></li>
+                    </ul>
+                </div>
+                <div class="product-content">
+                    <div class="card-rating">
+                        <span class="{% if variant.product.average_rating > 0 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 1 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 2 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 3 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <span class="{% if variant.product.average_rating > 4 %} fas {% else %} far {% endif %} fa-star"></span>
+                        <small>({{variant.product.review_count}})</small>
+                    </div>
+                    <div class="d-flex text-capitalize">
+                        <h6><b>Colors:</b></h6>
+                        {% for var in variant.product.variants.all %}
+                        <div class="color-circles" style="background-color: {{var.color}};"></div>
+                        {% endfor %}
+                    </div>
+                    <h3 class="title"><a href="{% url 'product' variant.slug %}">{{variant.product.title}} {{variant.color}} {{variant.size}}</a></h3>
+                    <div class="price">₹{{variant.discount_price}} <del>₹{{variant.sell_price}}</del></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Products End -->
+{% endif %}
+
+
+<!-- Products End -->
+{% endblock body%}
+{% block infos %}
+<p class="mb-4">{{information.bio}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
+<p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
+{% endblock infos %}
+{% block fsocial %}
+<div class="d-flex">
+    <a class="btn btn-primary btn-square mr-2" href="{{information.twitter}}"><i class="fab fa-twitter"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.facebook}}"><i class="fab fa-facebook-f"></i></a>
+    <a class="btn btn-primary btn-square mr-2" href="{{information.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+    <a class="btn btn-primary btn-square" href="{{information.instagram}}"><i class="fab fa-instagram"></i></a>
+</div>
+{% endblock fsocial %}
