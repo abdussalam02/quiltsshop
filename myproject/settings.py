@@ -37,8 +37,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# ALLOWED_HOSTS = ['burak.up.railway.app', '127.0.0.1']
-# CSRF_TRUSTED_ORIGINS = ['https://burak.up.railway.app/']
+ALLOWED_HOSTS = ['quilts.up.railway.app', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://quilts.up.railway.app/']
 
 # Application definition
 
