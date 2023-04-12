@@ -325,3 +325,5 @@ $('.wishlist-cart').click(function () {
 })
 
 
+const froalaTag = document.querySelectorAll('[data-f-id="pbf"]');
+froalaTag.forEach(e => e.remove())

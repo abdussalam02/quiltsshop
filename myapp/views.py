@@ -20,12 +20,16 @@ razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY, settings.RAZO
 def index(request):
     data = ProductVariant.objects.all()[:8]
     info = Information.objects.get(id=1)
+    carousal = Carousal.objects.all().reverse()[:3]
+    offer = Offer.objects.all().reverse()
+    offer1 = offer[:2]
+    offer2 = offer[2:4]
     cart_count = 0
     wish_count = 0
     if request.user.is_authenticated:
         cart_count = Cart.objects.filter(user=request.user).all().count()
         wish_count = Wishlist.objects.filter(user=request.user).all().count()
-    return render(request, "index.html", {"variants": data, "recent_variants": data[::-1], "cart_count": cart_count, "wish_count": wish_count, "information": info})
+    return render(request, "index.html", {"variants": data, "recent_variants": data[::-1], "cart_count": cart_count, "wish_count": wish_count, "information": info, "carousal": carousal, "offer1": offer1, "offer2": offer2})
 
 def all_product(request):
     data = ProductVariant.objects.all()
@@ -352,13 +356,25 @@ def user_orders(request):
 
 def blogs(request):
     data = Blog.objects.all()
-    return render(request, 'blog.html', {"blogs":data})
+    info = Information.objects.get(id=1)
+    cart_count = 0
+    wish_count = 0
+    if request.user.is_authenticated:
+        cart_count = Cart.objects.filter(user=request.user).all().count()
+        wish_count = Wishlist.objects.filter(user=request.user).all().count()
+    return render(request, 'blog.html', {"blogs":data, "cart_count": cart_count, "wish_count": wish_count, "information": info})
 
 def blog_details(request, slug):
     data = Blog.objects.get(slug=slug)
     blogs = BlogDetail.objects.filter(blog=data).all()
     related = Blog.objects.all().prefetch_related("blogs").exclude(id=data.id).reverse()[:7]
-    return render(request, "blogdetail.html", {"blog":data, "blogs": blogs, "related": related})
+    info = Information.objects.get(id=1)
+    cart_count = 0
+    wish_count = 0
+    if request.user.is_authenticated:
+        cart_count = Cart.objects.filter(user=request.user).all().count()
+        wish_count = Wishlist.objects.filter(user=request.user).all().count()
+    return render(request, "blogdetail.html", {"blog":data, "blogs": blogs, "related": related, "cart_count": cart_count, "wish_count": wish_count, "information": info})
 
 def contact(request):
     cart_count = 0

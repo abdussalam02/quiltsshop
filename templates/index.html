@@ -9,6 +9,7 @@
 <!-- Carousel Start -->
 <div class="container-fluid mb-3">
     <div class="row px-xl-5">
+        {% if carousal %}
         <div class="col-lg-8">
             <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -17,69 +18,39 @@
                     <li data-target="#header-carousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item position-relative active" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="{% static 'img/bedsheet-1.jpg' %}"
+                    {% for car in carousal %}
+                    <div class="carousel-item position-relative {% if forloop.counter == 1 %}active{% endif %} " style="height: 430px;">
+                        <img class="position-absolute w-100 h-100" src="{{car.image.url}}"
                             style="object-fit: cover;">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Men Fashion
+                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{car.heading}}
                                 </h1>
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem
-                                    magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{car.sub_heading}}</p>
                                 <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-                                    href="#">Shop Now</a>
+                                    href="{{car.button_link}}">Shop Now</a>
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item position-relative" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="{% static 'img/bedsheet-2.jpg' %}"
-                            style="object-fit: cover;">
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Women
-                                    Fashion</h1>
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem
-                                    magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-                                    href="#">Shop Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item position-relative" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100" src="{% static 'img/bedsheet-1.jpg' %}"
-                            style="object-fit: cover;">
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Kids Fashion
-                                </h1>
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem
-                                    magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-                                    href="#">Shop Now</a>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+        {% endif %}
+        {% if offer1 %}
         <div class="col-lg-4">
+            {% for off in offer1 %}
             <div class="product-offer mb-30" style="height: 200px;">
-                <img class="img-fluid" src="{% static 'img/bedsheet-4.jpg' %}" alt="">
+                <img class="img-fluid" src="{{off.image.url}}" alt="">
                 <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save 20%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="" class="btn btn-primary">Shop Now</a>
+                    <h6 class="text-white text-uppercase">{{off.sub_heading}}</h6>
+                    <h3 class="text-white mb-3">{{off.heading}}</h3>
+                    <a href="{{off.button_link}}" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
-            <div class="product-offer mb-30" style="height: 200px;">
-                <img class="img-fluid" src="{% static 'img/bedsheet-6.jpg' %}" alt="">
-                <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save 20%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="" class="btn btn-primary">Shop Now</a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+        {% endif %}
     </div>
 </div>
 <!-- Carousel End -->
@@ -334,26 +305,20 @@
 <!-- Offer Start -->
 <div class="container-fluid pt-5 pb-3">
     <div class="row px-xl-5">
+        {% if offer2 %}
+        {% for off in offer2 %}
         <div class="col-md-6">
             <div class="product-offer mb-30" style="height: 300px;">
-                <img class="img-fluid" src="{% static 'img/bedsheet-6.jpg' %}" alt="">
+                <img class="img-fluid" src="{{off.image.url}}" alt="">
                 <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save 20%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="" class="btn btn-primary">Shop Now</a>
+                    <h6 class="text-white text-uppercase">{{off.sub_heading}}</h6>
+                    <h3 class="text-white mb-3">{{off.heading}}</h3>
+                    <a href="{{off.button_link}}" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="product-offer mb-30" style="height: 300px;">
-                <img class="img-fluid" src="{% static 'img/bedsheet-4.jpg' %}" alt="">
-                <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save 20%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="" class="btn btn-primary">Shop Now</a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
+        {% endif %}
     </div>
 </div>
 <!-- Offer End -->

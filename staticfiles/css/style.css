@@ -10854,12 +10854,12 @@ h6 {
   background-color: #fff;
   text-align: center;
   transition: all 0.3s ease 0s;
-  box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
   border-radius: 0.5em;
 }
 
 .product-grid:hover {
   box-shadow: 0 0 20px -10px #8D7B68;
+  /* box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10); */
 }
 
 .product-grid .product-image {
@@ -10878,7 +10878,7 @@ h6 {
 
 .product-grid .product-image img {
   width: 100%;
-  height: auto;
+  height: 430px;
 }
 
 .product-grid .product-links {

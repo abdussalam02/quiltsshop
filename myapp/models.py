@@ -1,9 +1,9 @@
 from django.db import models
 from datetime import timedelta
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
-from .helpers import generate_slug, generate_blog_slug, compress_img
+from .helpers import generate_slug, generate_blog_slug
 from froala_editor.fields import FroalaField
-
+from django_resized import ResizedImageField
 
 class UserManager(BaseUserManager):
     def create_user(self, name, email, phone, password=None):
@@ -109,19 +109,14 @@ class Product(models.Model):
     
 class Image(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
-    image =  models.ImageField(upload_to='product-img', help_text='Upload image of size 400 x 400')
-
-    def save(self, *args, **kwargs):
-        new = compress_img(self.image)
-        self.image = new
-        super(Image, self).save(*args, **kwargs)
+    image = ResizedImageField(quality=70, force_format='WEBP', upload_to='product-img', help_text='Upload image of size 1080 x 1440')
 
     def __str__(self) -> str:
         return str(self.product.title)
 
 class ProductVariant(models.Model):
     product = models.ForeignKey(Product, related_name='variants', on_delete=models.CASCADE)
-    thumbnail =  models.ImageField(upload_to='product-img', help_text='Upload image of size 400 x 400')
+    thumbnail = ResizedImageField(quality=70, force_format='WEBP', upload_to='product-img', help_text='Upload image of size 1080 x 1440')
     color = models.CharField(max_length=50, null=True)
     size = models.CharField(max_length=50, null=True)
     quantity = models.PositiveIntegerField(default=5)
@@ -133,8 +128,6 @@ class ProductVariant(models.Model):
         self.slug = generate_slug(f"{self.product.title} {self.color} {self.size}")
         self.color = self.color.capitalize()
         self.size = self.size.capitalize()
-        new = compress_img(self.thumbnail)
-        self.thumbnail = new
         super(ProductVariant, self).save(*args, **kwargs)
 
     def discount_percent(self):
@@ -251,7 +244,7 @@ class Order(models.Model):
         return str(self.user)
 
 class Blog(models.Model):
-    image = models.ImageField(upload_to="blogs", null=False, help_text='Upload image of size 350 x 350')
+    image = ResizedImageField(quality=70, force_format='WEBP', upload_to='blogs', help_text='Upload image of size 350 x 350')
     date = models.DateTimeField(auto_now_add=True)
     category = models.CharField(max_length=50,null=True, blank= True)
     title = models.CharField(max_length=255)
@@ -260,8 +253,6 @@ class Blog(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = generate_blog_slug(self.title)
-        new_image = compress_img(self.image)
-        self.image = new_image
         super(Blog, self).save(*args, **kwargs)
 
     def __str__(self) -> str:
@@ -279,7 +270,7 @@ class Carousal(models.Model):
     heading = models.CharField(max_length=100, null=True)
     sub_heading = models.CharField(max_length=100, null=True)
     button_link = models.URLField()
-    image = models.ImageField(upload_to='carousal')
+    image = ResizedImageField(quality=70, force_format='WEBP', upload_to='carousal', help_text='Upload image of size 650 x 350')
 
     def __str__(self) -> str:
         return str(self.heading)
@@ -289,7 +280,7 @@ class Offer(models.Model):
     heading = models.CharField(max_length=100, null=True)
     sub_heading = models.CharField(max_length=100, null=True)
     button_link = models.URLField()
-    image = models.ImageField(upload_to='offer')
+    image = ResizedImageField(quality=70, force_format='WEBP', upload_to='offer', help_text='Upload image of size 400 x 200')
 
     def __str__(self) -> str:
         return str(self.heading)
