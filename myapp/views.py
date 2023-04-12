@@ -123,12 +123,11 @@ def login_user(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            print(email, password)
+
             if not User.objects.filter(email=email).exists():
                 form.add_error('email', 'Email does not exist please sign up first!')
             if email and password:
                 user = authenticate(request, email=email, password=password)
-                print(user)
                 if not user:
                     form.add_error('password', 'Invalid password try again!')
                 else:
@@ -383,17 +382,29 @@ def contact(request):
     if request.user.is_authenticated:
         cart_count = Cart.objects.filter(user=request.user).all().count()
         wish_count = Wishlist.objects.filter(user=request.user).all().count()
-    if request.method == "POST":
-        name = request.POST.get('name')
-        email = request.POST.get('email').lower()
-        subject = request.POST.get('subject')
-        message = request.POST.get('message')
-        text = f'''You have received a message Quilts Shop Pvt. Ltd. website.\nName: {name}\nEmail: {email}\nMessage: {message}'''
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['shaikharshi69@gmail.com', 'iamaladdin02@gmail.com']
-        send_mail(subject=subject, message=text, from_email=email_from, recipient_list=recipient_list )
-        # messages.success(request, 'Email Sent Successfully')
-    return render(request, 'contact.html', {"cart_count": cart_count, "wish_count": wish_count, "information": info})
+    if request.method == 'GET':
+        context = {'form': ContactForm(), "information": info, "cart_count": cart_count, "wish_count": wish_count}
+        return render(request, 'contact.html', context)
+
+    elif request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get('name')            
+            email = form.cleaned_data.get('email')
+            subject = form.cleaned_data.get('subject')            
+            message = form.cleaned_data.get('message')
+            if len(name) < 5 and len(email) < 15:
+                form.add_error('name', 'Name is too short!')
+                form.add_error('email', 'Email is too short!')
+            else:
+                text = f'''You have received a message Quilts Shop Pvt. Ltd. website.\nName: {name}\nEmail: {email}\nMessage: {message}'''
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = ['shaikharshi69@gmail.com', 'iamaladdin02@gmail.com']
+                send_mail(subject=subject, message=text, from_email=email_from, recipient_list=recipient_list)
+                messages.success(request, 'Email Sent Successfully')
+                return redirect('contact')
+        context = {'form': form, "information": info, "cart_count": cart_count, "wish_count": wish_count}
+        return render(request, 'contact.html', context)
 
 def subscribe(request):
     if request.method == 'POST':

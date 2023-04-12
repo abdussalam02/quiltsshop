@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Information, Carousal, Offer, Product, ProductVariant, Payment, Image, Cart, Order, User, Review, Addres, Wishlist, Subscription
-from django.db import models
+from .models import Information, Carousal, Offer, Product, ProductVariant, Payment, Image, Blog, BlogDetail, Cart, Order, User, Review, Addres, Wishlist, Subscription
 
 class ImageAdmin(admin.StackedInline):
     model = Image
@@ -14,6 +13,16 @@ class ProductAdmin(admin.ModelAdmin):
 
     class Meta:
        model = Product
+
+class DetailAdmin(admin.StackedInline):
+    model = BlogDetail
+ 
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    inlines = [DetailAdmin]
+
+    class Meta:
+       model = Blog
 
 admin.site.register(Payment)
 admin.site.register(Information)

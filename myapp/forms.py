@@ -90,3 +90,18 @@ class RegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class ContactForm(forms.Form):
+
+    name = forms.CharField(widget=forms.TextInput(attrs={'required':1}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'required':1}))
+    subject = forms.CharField(widget=forms.TextInput(attrs={'required':1}))
+    message = forms.CharField(widget=forms.Textarea(attrs={'rows':5, 'required':1}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_action = reverse_lazy('contact')
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Send Message', css_class='btn-primary'))

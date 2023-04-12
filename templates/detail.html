@@ -87,7 +87,7 @@ Breadcrumb Start
                 <div class="sizes">
                     {% for var in variant.product.variants.all %}
                     {% if var.color == variant.color %}
-                    <button class="btn-circle" ><a href="{% url 'product' var.slug %}">{{var.size}}</a></button>
+                    <span class="size-btn mb-3 bg-secondary {% if var.size == variant.size %}.choosen{% endif %}"><a href="{% url 'product' var.slug %}">{{var.size}}</a></span>
                     {% endif %}
                     {% endfor %}
                 </div>
@@ -170,8 +170,8 @@ Breadcrumb Start
                             <div class="col-md-6">
                                 <h4 class="mb-4">{{product.review_count}} review for "{{product.title}}"</h4>
                                 {% for review in reviews %}
-                                <div class="media ">
-                                    <img src="{% static 'img/user.webp' %}" alt="Image" class="img-fluid mr-3 mt-1"
+                                <div class="media">
+                                    <img src="{% static 'img/profile.png' %}" alt="Image" class="img-fluid mr-3 mt-1"
                                         style="width: 45px;">
                                     <div class="media-body">
                                         <h6>{{review.user.name}}<small> - <i>{{review.date}}</i></small></h6>
@@ -202,7 +202,7 @@ Breadcrumb Start
                                             title="3 stars"></label>
                                         <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
                                             title="2 stars"></label>
-                                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+                                        <input type="radio" id="star1" name="rating" value="1"/><label for="star1"
                                             title="1 star"></label>
                                     </div>
                                     <input name="variant" type="hidden" class="form-control" value="{{variant.id}}">
@@ -294,7 +294,7 @@ Breadcrumb Start
 {% endblock body %}
 {% block infos %}
 <p class="mb-4">{{information.bio}}</p>
-<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i><a href="https://www.google.com/maps/place/{{information.address}}">{{information.address}}</a></p>
 <p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
 <p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
 {% endblock infos %}

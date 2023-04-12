@@ -83,7 +83,7 @@
 
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
+                <a href="{% url 'index' %}" class="text-decoration-none">
                     <span class="h1 text-uppercase text-primary  px-2  " style="background-color: var(--primary-color)";>Quilts</span>
                     <span class="h1 text-uppercase text-dark px-2 ml-n1" style="background-color: #FBF3F0">Shop</span>
                 </a>
@@ -127,7 +127,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="{% url 'index' %}" class="nav-item nav-link active ">Home</a>
+                            <a href="{% url 'index' %}" class="nav-item nav-link">Home</a>
                             <a href="{% url 'category' 'Quilts' %}" class="nav-item nav-link ">Quilts</a>
                             <a href="{% url 'category' 'Bed Covers' %}" class="nav-item nav-link ">Bed Covers</a>
                             <a href="{% url 'category' 'Bed Sheets' %}" class="nav-item nav-link ">Bed Sheets</a>

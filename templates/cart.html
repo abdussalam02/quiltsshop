@@ -110,7 +110,7 @@
     
 {% block infos %}
 <p class="mb-4">{{information.bio}}</p>
-<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i>{{information.address}}</p>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-secondary mr-3"></i><a href="https://www.google.com/maps/place/{{information.address}}">{{information.address}}</a></p>
 <p class="mb-2"><i class="fa fa-envelope text-secondary mr-3"></i><a href="mailto:{{information.email}}">{{information.email}}</a></p>
 <p class="mb-0"><i class="fa fa-phone-alt text-secondary mr-3"></i><a href="tel:{{information.phone}}">{{information.phone}}</a></p>
 {% endblock infos %}

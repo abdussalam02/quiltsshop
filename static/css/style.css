@@ -5124,6 +5124,10 @@ input[type="button"].btn-block {
   border-color: #F1DEC9;
 }
 
+.page-item.active .page-link:hover{
+  background-color: #00234D ;
+}
+
 .page-item.disabled .page-link {
   color: #6c757d;
   pointer-events: none;
@@ -11388,4 +11392,19 @@ input:focus {
 .checkout-btn {
   background-color: white;
   color: black;
+}
+
+.size-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 17px;
+  letter-spacing: 0.03em;
+  color: #FEFEFE;
+  display: inline-block;
+}
+
+.size-btn .choosen {
+  border: 1px solid black;
 }
